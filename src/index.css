@@ -22,6 +22,7 @@ All colors MUST be HSL.
     --primary-foreground: 0 0% 100%;
     --primary-light: 290 85% 70%;
     --primary-dark: 270 75% 50%;
+    --primary-glow: 280 100% 75%;
 
     --secondary: 0 0% 96%;
     --secondary-foreground: 240 10% 15%;
@@ -39,17 +40,28 @@ All colors MUST be HSL.
     --input: 240 6% 90%;
     --ring: 280 80% 60%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
     
-    /* Aivator gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(280 80% 60%), hsl(320 85% 65%), hsl(260 75% 65%));
-    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 98%), hsl(280 30% 98%));
-    --gradient-card: linear-gradient(135deg, hsl(280 70% 95%), hsl(320 75% 96%));
+    /* Futuristic gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(280 80% 60%) 0%, hsl(320 85% 65%) 50%, hsl(260 75% 65%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(280 90% 65%) 0%, hsl(320 95% 70%) 50%, hsl(340 90% 70%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 98%) 0%, hsl(280 30% 98%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(280 70% 96%) 0%, hsl(320 75% 97%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
     
-    /* Shadows */
-    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
-    --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.08);
-    --shadow-glow: 0 0 24px rgba(168, 85, 247, 0.15);
+    /* Shadows & Glows */
+    --shadow-card: 0 4px 20px rgba(168, 85, 247, 0.08);
+    --shadow-elevated: 0 8px 32px rgba(168, 85, 247, 0.12);
+    --shadow-glow: 0 0 40px rgba(168, 85, 247, 0.25);
+    --shadow-intense: 0 12px 48px rgba(168, 85, 247, 0.2);
+    
+    /* Glassmorphism */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(168, 85, 247, 0.2);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -96,8 +108,25 @@ All colors MUST be HSL.
     background: var(--gradient-primary);
   }
   
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
   .gradient-card {
     background: var(--gradient-card);
+  }
+  
+  .gradient-glass {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
   }
   
   .shadow-card {
@@ -106,5 +135,30 @@ All colors MUST be HSL.
   
   .shadow-elevated {
     box-shadow: var(--shadow-elevated);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .shadow-intense {
+    box-shadow: var(--shadow-intense);
+  }
+  
+  .glow-text {
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .hover-float {
+    transition: var(--transition-smooth);
+  }
+  
+  .hover-float:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-intense);
   }
 }

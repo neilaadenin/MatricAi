@@ -10,12 +10,12 @@ interface StatCardProps {
 
 function StatCard({ icon, value, label, className }: StatCardProps) {
   return (
-    <Card className={`p-6 shadow-card ${className}`}>
+    <Card className={`glass-card p-6 rounded-2xl shadow-elevated hover-float ${className}`}>
       <div className="flex items-center gap-4">
-        <div className="p-3 rounded-xl bg-white/50">{icon}</div>
+        <div className="p-4 rounded-2xl gradient-primary shadow-glow">{icon}</div>
         <div>
-          <p className="text-2xl font-bold">{value}</p>
-          <p className="text-sm text-muted-foreground">{label}</p>
+          <p className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{value}</p>
+          <p className="text-sm text-muted-foreground font-medium">{label}</p>
         </div>
       </div>
     </Card>
@@ -26,34 +26,33 @@ export function PerformanceCard() {
   return (
     <div className="space-y-6">
       {/* Main Performance Card */}
-      <Card className="p-6 gradient-primary text-white shadow-elevated">
-        <div className="flex items-start justify-between">
-          <div>
-            <p className="text-white/90 font-medium mb-2">Performa</p>
-            <div className="flex items-baseline gap-2">
-              <TrendingUp className="w-8 h-8" />
-              <span className="text-5xl font-bold">+23%</span>
-            </div>
-            <p className="mt-4 text-white/90 text-sm leading-relaxed">
-              Minggu yang luar biasa! Interaksi Anda naik 20% dan meningkat 15%.
-            </p>
+      <Card className="p-8 gradient-hero text-white shadow-intense rounded-3xl hover-float relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+        <div className="relative">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm mb-4">
+            <span className="text-white/90 font-semibold text-sm">Performa Minggu Ini</span>
           </div>
+          <div className="flex items-baseline gap-3 mb-6">
+            <TrendingUp className="w-10 h-10" />
+            <span className="text-6xl font-bold glow-text">+23%</span>
+          </div>
+          <p className="text-white/95 text-base leading-relaxed max-w-md">
+            Minggu yang luar biasa! Interaksi Anda naik 20% dan meningkat 15%.
+          </p>
         </div>
       </Card>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <StatCard
-          icon={<ShoppingCart className="w-6 h-6 text-primary" />}
+          icon={<ShoppingCart className="w-6 h-6 text-white" />}
           value="2,847"
           label="Total Pembelian"
-          className="bg-gradient-to-br from-cyan-50 to-cyan-100/50"
         />
         <StatCard
-          icon={<DollarSign className="w-6 h-6 text-primary" />}
+          icon={<DollarSign className="w-6 h-6 text-white" />}
           value="Rp. 100.000"
           label="Pendapatan"
-          className="bg-gradient-to-br from-cyan-50 to-cyan-100/50"
         />
       </div>
     </div>

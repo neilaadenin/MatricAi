@@ -11,6 +11,7 @@ import Community from "./pages/Community";
 import Profile from "./pages/Profile";
 import Notifications from "./pages/Notifications";
 import Visualisasi from "./pages/Visualisasi";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
             <div className="container mx-auto px-4 py-8 max-w-7xl">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
+                <Route path="/auth" element={<Auth />} />
                 <Route path="/ai" element={<AIChat />} />
                 <Route path="/visualisasi" element={<Visualisasi />} />
                 <Route path="/komunitas" element={<Community />} />

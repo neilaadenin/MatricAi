@@ -35,57 +35,57 @@ export default function Community() {
   const [activeTab, setActiveTab] = useState("Trending");
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold mb-2">Komunitas UMKM</h1>
+      <div className="glass-card p-8 rounded-3xl shadow-elevated">
+        <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+          Komunitas UMKM
+        </h1>
+        <p className="text-muted-foreground">Terhubung dengan ribuan UMKM lainnya</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b">
+      <div className="glass-card rounded-2xl p-2 shadow-card flex gap-2">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-6 py-3 font-medium transition-colors relative ${
+            className={`flex-1 px-6 py-3 font-semibold rounded-xl transition-all duration-300 ${
               activeTab === tab
-                ? "text-primary"
-                : "text-muted-foreground hover:text-foreground"
+                ? "gradient-primary text-white shadow-glow"
+                : "text-muted-foreground hover:bg-primary/5"
             }`}
           >
             {tab}
-            {activeTab === tab && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-accent" />
-            )}
           </button>
         ))}
       </div>
 
       {/* Groups Section (when Grup tab is active) */}
       {activeTab === "Grup" && (
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Rekomendasi Untukmu</h2>
+            <h2 className="text-xl font-bold">Rekomendasi Untukmu</h2>
             <Button variant="ghost" size="sm">Lihat Semua</Button>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {groups.map((group, idx) => (
-              <Card key={idx} className="overflow-hidden shadow-card hover:shadow-elevated transition-all">
-                <img src={group.image} alt={group.name} className="w-full h-32 object-cover" />
-                <div className="p-4">
-                  <div className="flex items-start gap-3 mb-3">
+              <Card key={idx} className="overflow-hidden glass-card rounded-3xl shadow-elevated hover-float group">
+                <img src={group.image} alt={group.name} className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
+                <div className="p-6">
+                  <div className="flex items-start gap-3 mb-4">
                     <img
                       src={group.image}
                       alt=""
-                      className="w-12 h-12 rounded-lg object-cover"
+                      className="w-12 h-12 rounded-xl object-cover shadow-card"
                     />
                     <div className="flex-1">
-                      <h3 className="font-semibold text-sm">{group.name}</h3>
+                      <h3 className="font-bold text-base">{group.name}</h3>
                       <p className="text-xs text-muted-foreground">{group.members}</p>
                     </div>
                   </div>
-                  <Button variant="gradient" size="sm" className="w-full">
+                  <Button variant="gradient" size="lg" className="w-full">
                     + Join
                   </Button>
                 </div>
@@ -96,47 +96,53 @@ export default function Community() {
       )}
 
       {/* Posts Section */}
-      <div className="space-y-4">
-        <h2 className="text-lg font-semibold">Postingan</h2>
+      <div className="space-y-6">
+        <h2 className="text-xl font-bold">Postingan</h2>
         
         {posts.map((post, idx) => (
-          <Card key={idx} className="p-6 shadow-card hover:shadow-elevated transition-all">
+          <Card key={idx} className="glass-card p-8 rounded-3xl shadow-elevated hover-float">
             {/* Author */}
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center text-white font-semibold">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-14 h-14 rounded-2xl gradient-hero flex items-center justify-center text-white font-bold text-xl shadow-glow">
                 {post.author[0]}
               </div>
               <div>
-                <h3 className="font-semibold">{post.author}</h3>
+                <h3 className="font-bold text-lg">{post.author}</h3>
                 <p className="text-sm text-muted-foreground">{post.handle}</p>
               </div>
             </div>
 
             {/* Content */}
-            <p className="mb-4 text-sm leading-relaxed">{post.content}</p>
+            <p className="mb-6 leading-relaxed">{post.content}</p>
 
             {/* Image */}
             {post.image && (
               <img
                 src={post.image}
                 alt=""
-                className="w-full h-64 object-cover rounded-lg mb-4"
+                className="w-full h-80 object-cover rounded-2xl mb-6 shadow-card"
               />
             )}
 
             {/* Interactions */}
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <button className="flex items-center gap-2 hover:text-primary transition-colors">
-                <Heart className="w-5 h-5" />
-                <span>{post.likes}</span>
+            <div className="flex items-center gap-8 text-sm">
+              <button className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-all hover:scale-110">
+                <div className="p-2 rounded-xl hover:bg-primary/5">
+                  <Heart className="w-5 h-5" />
+                </div>
+                <span className="font-semibold">{post.likes}</span>
               </button>
-              <button className="flex items-center gap-2 hover:text-primary transition-colors">
-                <MessageCircle className="w-5 h-5" />
-                <span>{post.comments}</span>
+              <button className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-all hover:scale-110">
+                <div className="p-2 rounded-xl hover:bg-primary/5">
+                  <MessageCircle className="w-5 h-5" />
+                </div>
+                <span className="font-semibold">{post.comments}</span>
               </button>
-              <button className="flex items-center gap-2 hover:text-primary transition-colors">
-                <Share2 className="w-5 h-5" />
-                <span>{post.shares}</span>
+              <button className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-all hover:scale-110">
+                <div className="p-2 rounded-xl hover:bg-primary/5">
+                  <Share2 className="w-5 h-5" />
+                </div>
+                <span className="font-semibold">{post.shares}</span>
               </button>
             </div>
           </Card>

@@ -14,11 +14,11 @@ const navItems = [
 
 export function Sidebar() {
   return (
-    <aside className="hidden md:flex md:w-64 md:flex-col fixed inset-y-0 z-50 bg-card border-r shadow-card">
+    <aside className="hidden md:flex md:w-64 md:flex-col fixed inset-y-0 z-50 glass-card border-r border-primary/10 shadow-elevated">
       {/* Logo */}
-      <div className="flex items-center gap-3 px-6 py-5 border-b">
-        <img src={aivatorLogo} alt="Aivator" className="w-10 h-10" />
-        <span className="text-2xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+      <div className="flex items-center gap-3 px-6 py-6 border-b border-primary/10">
+        <img src={aivatorLogo} alt="Aivator" className="w-12 h-12 drop-shadow-glow" />
+        <span className="text-2xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent glow-text">
           Aivator
         </span>
       </div>
@@ -32,10 +32,10 @@ export function Sidebar() {
             end={item.path === "/"}
             className={({ isActive }) =>
               cn(
-                "flex items-center gap-3 px-4 py-3 rounded-lg transition-all",
+                "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300",
                 isActive
-                  ? "bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 text-primary font-medium"
-                  : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                  ? "gradient-primary text-white font-semibold shadow-glow"
+                  : "text-muted-foreground hover:bg-primary/5 hover:text-primary"
               )
             }
           >

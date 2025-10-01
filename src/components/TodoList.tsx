@@ -33,10 +33,12 @@ const todos = [
 
 export function TodoList() {
   return (
-    <Card className="p-6 shadow-card">
-      <div className="mb-6">
-        <p className="text-sm text-muted-foreground mb-2">Hi, Neila</p>
-        <h2 className="text-2xl font-bold">Ini adalah Todo Kamu</h2>
+    <Card className="glass-card p-8 rounded-3xl shadow-elevated">
+      <div className="mb-8">
+        <p className="text-sm text-primary font-semibold mb-2">Hi, Neila</p>
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          Ini adalah Todo Kamu
+        </h2>
       </div>
 
       <div className="space-y-4">
@@ -50,7 +52,7 @@ export function TodoList() {
             <div
               className={`relative ${
                 todo.highlight
-                  ? "gradient-primary p-6 rounded-xl text-white shadow-elevated"
+                  ? "gradient-hero p-8 rounded-2xl text-white shadow-intense hover-float"
                   : "pl-10 pr-4 py-4"
               }`}
             >
