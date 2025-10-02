@@ -4,10 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Sparkles, Mail, Lock, User, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import aivatorLogo from "@/assets/aivator-logo.png";
 
 export default function Auth() {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,8 +16,7 @@ export default function Auth() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle authentication logic here
-    console.log("Auth attempt:", { email, password, name, isLogin });
+    navigate("/onboarding");
   };
 
   return (

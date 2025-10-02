@@ -1,6 +1,7 @@
-import { NavLink } from "react-router-dom";
-import { Home, Sparkles, BarChart3, Users, User, Bell } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { Home, Sparkles, BarChart3, Users, User, Bell, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import aivatorLogo from "@/assets/aivator-logo.png";
 
 const navItems = [
@@ -13,11 +14,17 @@ const navItems = [
 ];
 
 export function Sidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/auth");
+  };
+
   return (
     <aside className="hidden md:flex md:w-64 md:flex-col fixed inset-y-0 z-50 glass-card border-r border-primary/10 shadow-elevated">
       {/* Logo */}
       <div className="flex items-center gap-3 px-6 py-6 border-b border-primary/10">
-        <img src={aivatorLogo} alt="Aivator" className="w-12 h-12 drop-shadow-glow" />
+        <img src={aivatorLogo} alt="Aivator" className="h-12 drop-shadow-glow" />
         <span className="text-2xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent glow-text">
           Aivator
         </span>
@@ -44,6 +51,18 @@ export function Sidebar() {
           </NavLink>
         ))}
       </nav>
+
+      {/* Logout Button */}
+      <div className="px-3 py-6 border-t border-primary/10">
+        <Button
+          onClick={handleLogout}
+          variant="outline"
+          className="w-full justify-start gap-3"
+        >
+          <LogOut className="w-5 h-5" />
+          <span>Keluar</span>
+        </Button>
+      </div>
     </aside>
   );
 }

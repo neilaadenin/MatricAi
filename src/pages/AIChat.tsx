@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send } from "lucide-react";
+import { Send, ChevronDown } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import aivatorLogo from "@/assets/aivator-logo.png";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
 }
+
+const chatHistory = [
+  { id: 1, title: "Strategi Marketing TikTok", date: "Kemarin" },
+  { id: 2, title: "Tips Meningkatkan Penjualan", date: "2 hari lalu" },
+  { id: 3, title: "Analisis Kompetitor", date: "3 hari lalu" },
+];
 
 export default function AIChat() {
   const [messages, setMessages] = useState<Message[]>([
@@ -22,6 +29,7 @@ export default function AIChat() {
     },
   ]);
   const [input, setInput] = useState("");
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -33,10 +41,35 @@ export default function AIChat() {
     <div className="flex flex-col h-[calc(100vh-8rem)] md:h-[calc(100vh-2rem)]">
       {/* Header */}
       <div className="glass-card border-b border-primary/10 p-6 shadow-elevated">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-          AI Chat
-        </h1>
-        <p className="text-sm text-muted-foreground mt-1">Tanyakan apapun tentang bisnis Anda</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Aivator Chat
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">Tanyakan apapun tentang bisnis Anda</p>
+          </div>
+          <Collapsible open={isHistoryOpen} onOpenChange={setIsHistoryOpen}>
+            <CollapsibleTrigger asChild>
+              <Button variant="outline" className="gap-2">
+                Riwayat chat
+                <ChevronDown className={`w-4 h-4 transition-transform ${isHistoryOpen ? "rotate-180" : ""}`} />
+              </Button>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="absolute right-6 top-20 z-50">
+              <div className="glass-card rounded-2xl shadow-elevated p-4 w-64 space-y-2">
+                {chatHistory.map((chat) => (
+                  <button
+                    key={chat.id}
+                    className="w-full text-left p-3 rounded-xl hover:bg-primary/5 transition-colors"
+                  >
+                    <p className="font-medium text-sm">{chat.title}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{chat.date}</p>
+                  </button>
+                ))}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
       </div>
 
       {/* Messages */}

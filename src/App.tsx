@@ -12,6 +12,8 @@ import Profile from "./pages/Profile";
 import Notifications from "./pages/Notifications";
 import Visualisasi from "./pages/Visualisasi";
 import Auth from "./pages/Auth";
+import Onboarding from "./pages/Onboarding";
+import ActionPlan from "./pages/ActionPlan";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +31,8 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/auth" element={<Auth />} />
+                <Route path="/onboarding" element={<Onboarding />} />
+                <Route path="/action-plan" element={<ActionPlan />} />
                 <Route path="/ai" element={<AIChat />} />
                 <Route path="/visualisasi" element={<Visualisasi />} />
                 <Route path="/komunitas" element={<Community />} />

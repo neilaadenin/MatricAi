@@ -1,11 +1,15 @@
 import { PerformanceCard } from "@/components/PerformanceCard";
 import { RecommendationCards } from "@/components/RecommendationCards";
 import { TodoList } from "@/components/TodoList";
+import { HeroCarousel } from "@/components/HeroCarousel";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -19,6 +23,9 @@ export default function Dashboard() {
           <span className="glow-text">Ide</span>
         </div>
       </div>
+
+      {/* Hero Carousel */}
+      <HeroCarousel />
 
       {/* Weekly Report Header */}
       <div className="flex items-center justify-between">
@@ -54,7 +61,12 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <Button variant="hero" size="lg" className="w-full mt-6">
+        <Button 
+          variant="hero" 
+          size="lg" 
+          className="w-full mt-6"
+          onClick={() => navigate("/action-plan")}
+        >
           Apa yang bisa kamu lakukan?
         </Button>
       </Card>
