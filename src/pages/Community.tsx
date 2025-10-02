@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, MessageCircle, Share2, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const tabs = ["Trending", "Grup", "Teman"];
 
@@ -33,6 +34,7 @@ const posts = [
 
 export default function Community() {
   const [activeTab, setActiveTab] = useState("Trending");
+  const navigate = useNavigate();
 
   return (
     <div className="space-y-8">
@@ -132,7 +134,10 @@ export default function Community() {
                 </div>
                 <span className="font-semibold">{post.likes}</span>
               </button>
-              <button className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-all hover:scale-110">
+              <button 
+                className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-all hover:scale-110"
+                onClick={() => navigate("/komunitas/post/1")}
+              >
                 <div className="p-2 rounded-xl hover:bg-primary/5">
                   <MessageCircle className="w-5 h-5" />
                 </div>

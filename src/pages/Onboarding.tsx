@@ -4,7 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import aivatorLogo from "@/assets/aivator-logo.png";
+import aivatorLogo from "@/assets/aivator-logo-clean.png";
+import onboarding1 from "@/assets/onboarding-1.png";
+import onboarding2 from "@/assets/onboarding-2.png";
+import onboarding3 from "@/assets/onboarding-3.png";
 
 const steps = ["Profil Bisnis", "Data Keuangan", "Data Operasional", "Data Pemasaran"];
 
@@ -20,17 +23,40 @@ export default function Onboarding() {
     }
   };
 
+  const getOnboardingImage = () => {
+    switch(currentStep) {
+      case 0: return onboarding1;
+      case 1: return onboarding2;
+      case 2: return onboarding3;
+      case 3: return onboarding1;
+      default: return onboarding1;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-subtle flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl">
-        {/* Logo */}
-        <div className="flex items-center justify-center mb-8">
-          <img src={aivatorLogo} alt="Aivator" className="h-16 drop-shadow-glow" />
-        </div>
+      <div className="w-full max-w-4xl">
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          {/* Left side - Image */}
+          <div className="hidden md:block">
+            <div className="relative rounded-3xl overflow-hidden shadow-intense">
+              <img 
+                src={getOnboardingImage()} 
+                alt="Onboarding" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
+            </div>
+          </div>
 
-        {/* Card */}
-        <div className="glass-card p-8 rounded-3xl shadow-elevated">
-          <h1 className="text-2xl font-bold text-center mb-8">Detail Bisnis</h1>
+          {/* Right side - Form */}
+          <div className="glass-card p-8 rounded-3xl shadow-elevated">
+            {/* Logo */}
+            <div className="flex items-center justify-center mb-8">
+              <img src={aivatorLogo} alt="Aivator" className="h-12 drop-shadow-glow" />
+            </div>
+
+            <h1 className="text-2xl font-bold text-center mb-8">Detail Bisnis</h1>
 
           {/* Progress Steps */}
           <div className="flex items-center justify-between mb-12 px-4">
@@ -64,15 +90,16 @@ export default function Onboarding() {
             {currentStep === 3 && <DataPemasaranForm />}
           </div>
 
-          {/* Button */}
-          <Button
-            onClick={handleNext}
-            variant="hero"
-            size="lg"
-            className="w-full mt-8"
-          >
-            {currentStep === steps.length - 1 ? "Selesai" : "Selanjutnya"}
-          </Button>
+            {/* Button */}
+            <Button
+              onClick={handleNext}
+              variant="hero"
+              size="lg"
+              className="w-full mt-8"
+            >
+              {currentStep === steps.length - 1 ? "Selesai" : "Selanjutnya"}
+            </Button>
+          </div>
         </div>
       </div>
     </div>

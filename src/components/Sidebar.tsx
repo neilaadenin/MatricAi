@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Home, Sparkles, BarChart3, Users, User, Bell, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import aivatorLogo from "@/assets/aivator-logo.png";
+import aivatorLogo from "@/assets/aivator-logo-clean.png";
 
 const navItems = [
   { title: "Beranda", icon: Home, path: "/" },
@@ -21,13 +21,10 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="hidden md:flex md:w-64 md:flex-col fixed inset-y-0 z-50 glass-card border-r border-primary/10 shadow-elevated">
+    <aside className="hidden md:flex md:flex-col fixed inset-y-0 z-50 w-64 glass-card border-r border-primary/10 shadow-elevated">
       {/* Logo */}
-      <div className="flex items-center gap-3 px-6 py-6 border-b border-primary/10">
+      <div className="flex items-center justify-center px-6 py-6 border-b border-primary/10">
         <img src={aivatorLogo} alt="Aivator" className="h-12 drop-shadow-glow" />
-        <span className="text-2xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent glow-text">
-          Aivator
-        </span>
       </div>
 
       {/* Navigation */}

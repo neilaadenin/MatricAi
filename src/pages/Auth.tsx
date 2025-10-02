@@ -2,10 +2,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card } from "@/components/ui/card";
-import { Sparkles, Mail, Lock, User, ArrowRight } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import aivatorLogo from "@/assets/aivator-logo.png";
+import { Mail, Lock, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import authHero from "@/assets/auth-hero.jpg";
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -16,59 +15,48 @@ export default function Auth() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Dummy login - navigate to onboarding
     navigate("/onboarding");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-subtle p-4 relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-      
-      <div className="w-full max-w-6xl grid md:grid-cols-2 gap-8 items-center relative z-10">
-        {/* Left side - Branding */}
-        <div className="hidden md:flex flex-col justify-center space-y-8">
-          <div className="flex items-center gap-4">
-            <img src={aivatorLogo} alt="Aivator" className="w-16 h-16 drop-shadow-glow" />
-            <div>
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent glow-text">
-                Aivator
-              </h1>
-              <p className="text-muted-foreground text-lg mt-2">Platform AI untuk UMKM</p>
-            </div>
-          </div>
-          
-          <div className="space-y-6">
-            <div className="glass-card p-6 rounded-2xl hover-float">
-              <Sparkles className="w-8 h-8 text-primary mb-3" />
-              <h3 className="font-bold text-xl mb-2">AI yang Memahami Bisnis Anda</h3>
-              <p className="text-muted-foreground">Dapatkan insight dan rekomendasi yang disesuaikan dengan kebutuhan bisnis UMKM Anda</p>
-            </div>
-            
-            <div className="glass-card p-6 rounded-2xl hover-float">
-              <Sparkles className="w-8 h-8 text-accent mb-3" />
-              <h3 className="font-bold text-xl mb-2">Komunitas UMKM Terhubung</h3>
-              <p className="text-muted-foreground">Bergabung dengan ribuan UMKM lainnya untuk berbagi pengalaman dan strategi</p>
-            </div>
+    <div className="min-h-screen flex w-full">
+      {/* Left side - Hero Image */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${authHero})` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-accent/60 to-primary/80 backdrop-blur-sm" />
+        </div>
+        <div className="relative z-10 flex flex-col justify-end p-12 text-white">
+          <h1 className="text-5xl font-bold mb-4 glow-text">
+            Platform AI untuk UMKM
+          </h1>
+          <p className="text-xl text-white/90 mb-8">
+            Dapatkan insight dan rekomendasi bisnis yang cerdas dari AI
+          </p>
+          <div className="flex gap-2">
+            <div className="w-12 h-1 bg-white rounded-full" />
+            <div className="w-1 h-1 bg-white/50 rounded-full" />
+            <div className="w-1 h-1 bg-white/50 rounded-full" />
           </div>
         </div>
+      </div>
 
-        {/* Right side - Auth form */}
-        <Card className="glass-card p-8 md:p-10 rounded-3xl shadow-intense hover-float">
-          <div className="mb-8 text-center">
+      {/* Right side - Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-background">
+        <div className="w-full max-w-md">
+          <div className="mb-8">
             <h2 className="text-3xl font-bold mb-2">
               {isLogin ? (
-                <>
-                  Halo! <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Selamat Datang Kembali</span>
-                </>
+                <>Selamat Datang di <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Aivator</span></>
               ) : (
-                <>
-                  Mulai <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Perjalanan Anda</span>
-                </>
+                <>Daftar di <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Aivator</span></>
               )}
             </h2>
             <p className="text-muted-foreground">
-              {isLogin ? "Masuk ke akun Anda untuk melanjutkan" : "Buat akun baru untuk memulai"}
+              {isLogin ? "Masuk ke akun Anda" : "Buat akun baru untuk memulai"}
             </p>
           </div>
 
@@ -139,10 +127,9 @@ export default function Auth() {
               type="submit" 
               variant="gradient" 
               size="lg" 
-              className="w-full group"
+              className="w-full"
             >
               {isLogin ? "Masuk" : "Daftar Sekarang"}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </form>
 
@@ -164,29 +151,22 @@ export default function Auth() {
                 <div className="w-full border-t border-border"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-card text-muted-foreground">Atau lanjutkan dengan</span>
+                <span className="px-4 bg-background text-muted-foreground">Atau lanjutkan dengan</span>
               </div>
             </div>
 
-            <div className="mt-6 grid grid-cols-3 gap-3">
+            <div className="mt-6 grid grid-cols-2 gap-3">
               <Button variant="outline" className="h-12 rounded-xl">
-                <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
+                <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
+                Google
               </Button>
               <Button variant="outline" className="h-12 rounded-xl">
-                <img src="https://www.apple.com/favicon.ico" alt="Apple" className="w-5 h-5" />
-              </Button>
-              <Button variant="outline" className="h-12 rounded-xl">
-                <img src="https://www.facebook.com/favicon.ico" alt="Facebook" className="w-5 h-5" />
+                <img src="https://www.facebook.com/favicon.ico" alt="Facebook" className="w-5 h-5 mr-2" />
+                Facebook
               </Button>
             </div>
           </div>
-
-          <div className="mt-8 text-center">
-            <Link to="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-              ← Kembali ke beranda
-            </Link>
-          </div>
-        </Card>
+        </div>
       </div>
     </div>
   );

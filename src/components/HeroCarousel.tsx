@@ -3,10 +3,10 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import { TrendingUp, Target, Zap } from "lucide-react";
+import { useEffect } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 
 const carouselItems = [
   {
@@ -30,9 +30,21 @@ const carouselItems = [
 ];
 
 export function HeroCarousel() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const autoplay = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 4000);
+
+    return () => clearInterval(autoplay);
+  }, [emblaApi]);
+
   return (
     <Carousel className="w-full" opts={{ align: "start", loop: true }}>
-      <CarouselContent>
+      <CarouselContent ref={emblaRef}>
         {carouselItems.map((item, index) => (
           <CarouselItem key={index}>
             <Card className={`${item.gradient} p-8 rounded-3xl shadow-intense hover-float border-0`}>
@@ -49,8 +61,6 @@ export function HeroCarousel() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="hidden md:flex -left-4" />
-      <CarouselNext className="hidden md:flex -right-4" />
     </Carousel>
   );
 }
