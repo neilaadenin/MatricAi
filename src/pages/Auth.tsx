@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Lock, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import authHero from "@/assets/auth-hero.jpg";
+import authHero from "@/assets/image.png";
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -23,12 +23,16 @@ export default function Auth() {
     <div className="min-h-screen flex w-full">
       {/* Left side - Hero Image */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        {/* Lapisan gambar background (dengan blur) */}
         <div 
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center backdrop-blur-sm" // <<< Perubahan di sini: backdrop-blur-sm dipindahkan
           style={{ backgroundImage: `url(${authHero})` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-accent/60 to-primary/80 backdrop-blur-sm" />
+          {/* Overlay gradient di atas gambar yang blur */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-accent/60 to-primary/80" /> {/* <<< backdrop-blur-sm dihapus dari sini */}
         </div>
+        
+        {/* Konten teks (tanpa blur) */}
         <div className="relative z-10 flex flex-col justify-end p-12 text-white">
           <h1 className="text-5xl font-bold mb-4 glow-text">
             Platform AI untuk UMKM
