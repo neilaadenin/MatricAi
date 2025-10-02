@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import aivatorLogo from "@/assets/aivator-logo.png";
+import profileImage from "@/assets/profile-drink.png"; // Add this import and save the image
 
-const tabs = ["Pribadi", "Bisnis", "Pengaturan"];
+// Menghapus tab "Pengaturan"
+const tabs = ["Pribadi", "Bisnis"];
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("Pribadi");
@@ -20,10 +22,8 @@ export default function Profile() {
       {/* Avatar */}
       <div className="flex justify-center">
         <div className="relative">
-          <div className="w-24 h-24 rounded-full bg-gradient-to-r from-primary to-accent p-1">
-            <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-              <img src={aivatorLogo} alt="Profile" className="w-16 h-16" />
-            </div>
+          <div className="w-24 h-24">
+            <img src={profileImage} alt="Profile" className="w-full h-full object-cover rounded-full" />
           </div>
           <button className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shadow-elevated">
             ✏️
@@ -31,13 +31,14 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex justify-center gap-2 border-b">
+      {/* Tabs - Dibuat rata tengah (justify-center) dengan jarak yang rapi */}
+      <div className="flex justify-center border-b">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-6 py-3 font-medium transition-colors relative ${
+            // Menggunakan mx-4 untuk jarak horizontal yang rapi di antara dua tab.
+            className={`px-4 py-3 mx-4 font-medium transition-colors relative ${
               activeTab === tab
                 ? "text-primary"
                 : "text-muted-foreground hover:text-foreground"
@@ -51,45 +52,49 @@ export default function Profile() {
         ))}
       </div>
 
-      {/* Form */}
-      <Card className="p-6 shadow-card">
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="name">Nama</Label>
-            <Input id="name" placeholder="Saiful Ahmad" />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="phone">No Hp</Label>
-            <Input id="phone" placeholder="081223847" />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="password">Kata Sandi</Label>
-            <div className="flex gap-2">
-              <Input id="password" type="password" placeholder="••••••" className="flex-1" />
-              <Button variant="outline">Ubah</Button>
+      {/* Form Content (Tergantung pada tab yang aktif) */}
+      
+      {/* Tab: Pribadi */}
+      {(activeTab === "Pribadi" || activeTab === "Pengaturan") && ( // Tetap tampilkan "Pribadi" sebagai default
+        <Card className="p-6 shadow-card">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="name">Nama</Label>
+              <Input id="name" placeholder="Ruby Jane" />
             </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="phone">No Hp</Label>
+              <Input id="phone" placeholder="081223847" />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password">Kata Sandi</Label>
+              <div className="flex gap-2">
+                <Input id="password" type="password" placeholder="••••••" className="flex-1" />
+                <Button variant="outline">Ubah</Button>
+              </div>
+            </div>
+
+            <Button variant="gradient" className="w-full">
+              Simpan Perubahan
+            </Button>
           </div>
+        </Card>
+      )}
 
-          <Button variant="gradient" className="w-full">
-            Simpan Perubahan
-          </Button>
-        </div>
-      </Card>
-
-      {/* Business Info (when Bisnis tab is active) */}
+      {/* Tab: Bisnis */}
       {activeTab === "Bisnis" && (
         <Card className="p-6 shadow-card">
           <div className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="business">Nama Bisnis</Label>
-              <Input id="business" placeholder="Toko Bangunan ABC" />
+              <Input id="business" placeholder="Cooking's jane" />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="category">Kategori</Label>
-              <Input id="category" placeholder="Retail" />
+              <Input id="category" placeholder="Makanan" />
             </div>
 
             <div className="space-y-2">

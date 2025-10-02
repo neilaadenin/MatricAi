@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Send, ChevronDown } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import aivatorLogo from "@/assets/aivator-logo.png";
+import profileDrink from "@/assets/profile-drink.png";
 
 interface Message {
   role: "user" | "assistant";
@@ -77,7 +78,7 @@ export default function AIChat() {
         {/* Aivator Logo Center */}
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full">
-            <img src={aivatorLogo} alt="Aivator" className="w-32 h-32 opacity-30 animate-pulse" />
+            <img src={profileDrink} alt="Profile" className="w-32 h-32 opacity-30 animate-pulse" />
             <p className="text-muted-foreground mt-4">Mulai percakapan dengan AI</p>
           </div>
         )}
@@ -90,13 +91,9 @@ export default function AIChat() {
             {/* Avatar */}
             <div className="flex-shrink-0">
               {message.role === "assistant" ? (
-                <div className="w-12 h-12 rounded-2xl gradient-primary p-2 shadow-glow">
-                  <img src={aivatorLogo} alt="AI" className="w-full h-full" />
-                </div>
+                <img src={aivatorLogo} alt="AI" className="w-12 h-12 rounded-2xl object-contain" />
               ) : (
-                <div className="w-12 h-12 rounded-2xl gradient-hero flex items-center justify-center text-white font-bold text-lg shadow-glow">
-                  S
-                </div>
+                <img src={profileDrink} alt="User" className="w-12 h-12 rounded-2xl object-cover" />
               )}
             </div>
 

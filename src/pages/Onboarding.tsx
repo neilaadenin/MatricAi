@@ -35,28 +35,9 @@ export default function Onboarding() {
 
   return (
     <div className="min-h-screen bg-gradient-subtle flex items-center justify-center p-4">
-      <div className="w-full max-w-4xl">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          {/* Left side - Image */}
-          <div className="hidden md:block">
-            <div className="relative rounded-3xl overflow-hidden shadow-intense">
-              <img 
-                src={getOnboardingImage()} 
-                alt="Onboarding" 
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent" />
-            </div>
-          </div>
-
-          {/* Right side - Form */}
-          <div className="glass-card p-8 rounded-3xl shadow-elevated">
-            {/* Logo */}
-            <div className="flex items-center justify-center mb-8">
-              <img src={aivatorLogo} alt="Aivator" className="h-12 drop-shadow-glow" />
-            </div>
-
-            <h1 className="text-2xl font-bold text-center mb-8">Detail Bisnis</h1>
+      <div className="w-full max-w-xl">
+        <div className="glass-card p-8 rounded-3xl shadow-elevated">
+          <h1 className="text-2xl font-bold text-center mb-8">Detail Bisnis</h1>
 
           {/* Progress Steps */}
           <div className="flex items-center justify-between mb-12 px-4">
@@ -90,16 +71,15 @@ export default function Onboarding() {
             {currentStep === 3 && <DataPemasaranForm />}
           </div>
 
-            {/* Button */}
-            <Button
-              onClick={handleNext}
-              variant="hero"
-              size="lg"
-              className="w-full mt-8"
-            >
-              {currentStep === steps.length - 1 ? "Selesai" : "Selanjutnya"}
-            </Button>
-          </div>
+          {/* Button */}
+          <Button
+            onClick={handleNext}
+            variant="hero"
+            size="lg"
+            className="w-full mt-8"
+          >
+            {currentStep === steps.length - 1 ? "Selesai" : "Selanjutnya"}
+          </Button>
         </div>
       </div>
     </div>
