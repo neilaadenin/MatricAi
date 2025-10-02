@@ -10,7 +10,6 @@ const navItems = [
   { title: "Visualisasi", icon: BarChart3, path: "/visualisasi" },
   { title: "Komunitas", icon: Users, path: "/komunitas" },
   { title: "Profil", icon: User, path: "/profil" },
-  { title: "Notifikasi", icon: Bell, path: "/notifikasi" },
 ];
 
 export function Sidebar() {
