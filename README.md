@@ -1,73 +1,102 @@
-# Welcome to your Lovable project
+# MatricAi - Platform AI untuk UMKM
 
-## Project info
+Aplikasi web HTML statis untuk platform AI yang membantu UMKM dalam mengelola bisnis mereka.
 
-**URL**: https://lovable.dev/projects/7a72c699-7f95-4e42-ad54-a2e7e393545c
+## 🚀 Cara Menjalankan Aplikasi
 
-## How can I edit this code?
+### Opsi 1: Menggunakan Python (Recommended)
+```bash
+# Python 3
+python -m http.server 3000
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/7a72c699-7f95-4e42-ad54-a2e7e393545c) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+# Python 2
+python -m SimpleHTTPServer 3000
 ```
 
-**Edit a file directly in GitHub**
+### Opsi 2: Menggunakan Node.js
+```bash
+# Install serve globally
+npm install -g serve
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+# Jalankan server
+serve -s . -l 3000
+```
 
-**Use GitHub Codespaces**
+### Opsi 3: Menggunakan Live Server (VS Code)
+1. Install extension "Live Server" di VS Code
+2. Klik kanan pada `index.html`
+3. Pilih "Open with Live Server"
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📁 Struktur File
 
-## What technologies are used for this project?
+```
+├── index.html              # Halaman utama (redirect ke auth)
+├── auth.html               # Halaman login/register
+├── onboarding.html         # Halaman onboarding
+├── aivator-dashboard.html  # Dashboard utama
+├── ai-chat.html           # Chat dengan AI
+├── visualisasi.html       # Visualisasi data bisnis
+├── community.html         # Komunitas UMKM
+├── profile.html           # Profil pengguna
+├── action-plan.html       # Rencana aksi bisnis
+├── notifications.html     # Notifikasi
+├── public/
+│   ├── logo.png          # Logo aplikasi
+│   └── favicon.ico       # Icon browser
+└── package.json          # Dependencies
+```
 
-This project is built with:
+## 🎯 Fitur Utama
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Dashboard Interaktif** - Overview bisnis dengan grafik dan statistik
+- **AI Chat** - Chat dengan AI untuk konsultasi bisnis
+- **Visualisasi Data** - Grafik dan analisis performa bisnis
+- **Komunitas** - Forum dan sharing antar UMKM
+- **Profil Pengguna** - Manajemen data pribadi dan bisnis
+- **Rencana Aksi** - Planning dan strategi bisnis
+- **Notifikasi** - Update dan reminder penting
 
-## How can I deploy this project?
+## 🎨 Teknologi yang Digunakan
 
-Simply open [Lovable](https://lovable.dev/projects/7a72c699-7f95-4e42-ad54-a2e7e393545c) and click on Share -> Publish.
+- **HTML5** - Struktur halaman
+- **CSS3** - Styling dan animasi
+- **JavaScript** - Interaktivitas
+- **Tailwind CSS** - Framework CSS utility-first
+- **Glassmorphism** - Efek kaca modern
+- **Responsive Design** - Mobile-friendly
 
-## Can I connect a custom domain to my Lovable project?
+## 📱 Responsive Design
 
-Yes, you can!
+Aplikasi dirancang untuk berfungsi optimal di:
+- Desktop (1024px+)
+- Tablet (768px - 1023px)
+- Mobile (320px - 767px)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 🔧 Customization
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+### Mengubah Logo
+Ganti file `public/logo.png` dengan logo Anda sendiri.
+
+### Mengubah Warna
+Edit variabel CSS di setiap file HTML:
+```css
+--primary: hsl(280 80% 60%);
+--accent: hsl(320 85% 65%);
+```
+
+### Menambah Halaman Baru
+1. Buat file HTML baru
+2. Copy struktur dari file yang ada
+3. Update navigasi di sidebar dan mobile nav
+
+## 📄 Lisensi
+
+Aplikasi ini dibuat untuk keperluan kompetisi coding.
+
+## 🤝 Kontribusi
+
+Silakan buat issue atau pull request untuk perbaikan dan fitur baru.
+
+---
+
+**MatricAi** - Platform AI untuk UMKM Indonesia 🇮🇩

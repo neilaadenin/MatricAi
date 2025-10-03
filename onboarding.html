@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatricAi - Onboarding</title>
+    <link rel="icon" type="image/png" href="public/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'hsl(280 80% 60%)',
+                        accent: 'hsl(320 85% 65%)',
+                        background: 'hsl(0 0% 98%)',
+                        foreground: 'hsl(240 10% 15%)',
+                        card: 'hsl(0 0% 100%)',
+                        muted: 'hsl(240 4% 46%)',
+                        destructive: 'hsl(0 84% 60%)',
+                        border: 'hsl(240 6% 90%)',
+                    },
+                    boxShadow: {
+                        'elevated': '0 8px 32px rgba(168, 85, 247, 0.12)',
+                        'glow': '0 0 40px rgba(168, 85, 247, 0.25)',
+                        'intense': '0 12px 48px rgba(168, 85, 247, 0.2)',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        
+        .gradient-primary {
+            background: linear-gradient(135deg, hsl(280 80% 60%) 0%, hsl(320 85% 65%) 50%, hsl(260 75% 65%) 100%);
+        }
+        
+        .gradient-hero {
+            background: linear-gradient(135deg, hsl(280 90% 65%) 0%, hsl(320 95% 70%) 50%, hsl(340 90% 70%) 100%);
+        }
+        
+        .gradient-subtle {
+            background: linear-gradient(180deg, hsl(0 0% 98%) 0%, hsl(280 30% 98%) 100%);
+        }
+        
+        .text-gradient-primary {
+            background: linear-gradient(135deg, hsl(280 80% 60%) 0%, hsl(320 85% 65%) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .shadow-elevated {
+            box-shadow: 0 8px 32px rgba(168, 85, 247, 0.12);
+        }
+        
+        .shadow-glow {
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.25);
+        }
+        
+        .shadow-intense {
+            box-shadow: 0 12px 48px rgba(168, 85, 247, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, hsl(280 80% 60%) 0%, hsl(320 85% 65%) 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
+        }
+        
+        .btn-secondary {
+            background: white;
+            border: 2px solid hsl(280 80% 60% / 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: hsl(280 80% 60% / 0.05);
+            border-color: hsl(280 80% 60% / 0.4);
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid hsl(240 6% 90%);
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: hsl(280 80% 60% / 0.4);
+            box-shadow: 0 0 0 3px hsl(280 80% 60% / 0.1);
+        }
+        
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+        
+        .step-indicator.active {
+            background: linear-gradient(135deg, hsl(280 80% 60%) 0%, hsl(320 85% 65%) 100%);
+            color: white;
+        }
+        
+        .step-indicator.completed {
+            background: hsl(120 60% 50%);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gradient-subtle min-h-screen">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <div class="glass-card border-b border-primary/10 shadow-elevated">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="h-10 w-10 rounded-lg overflow-hidden">
+                            <img src="public/logo.png" alt="MatricAi Logo" class="w-full h-full object-cover" />
+                        </div>
+                        <h1 class="text-xl font-bold text-gradient-primary">MatricAi</h1>
+                    </div>
+                    <div class="text-sm text-muted">
+                        Langkah <span id="current-step">1</span> dari 3
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-center space-x-4">
+                <div class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold active" data-step="1">1</div>
+                <div class="w-12 h-1 bg-gray-200 rounded-full">
+                    <div class="h-full bg-gradient-primary rounded-full transition-all duration-500" style="width: 0%" id="progress-bar"></div>
+                </div>
+                <div class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold" data-step="2">2</div>
+                <div class="w-12 h-1 bg-gray-200 rounded-full">
+                    <div class="h-full bg-gradient-primary rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <div class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold" data-step="3">3</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex items-center justify-center px-4">
+            <div class="w-full max-w-2xl">
+                <!-- Step 1: Business Type -->
+                <div id="step-1" class="step-content">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold mb-4">Jenis Bisnis Anda</h2>
+                        <p class="text-muted text-lg">Pilih kategori yang paling sesuai dengan bisnis Anda</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="business-option glass-card p-6 rounded-2xl shadow-elevated hover-float cursor-pointer" data-type="kuliner">
+                            <div class="text-center">
+                                <div class="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+                                    🍽️
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Kuliner</h3>
+                                <p class="text-sm text-muted">Restoran, warung, cafe, dll</p>
+                            </div>
+                        </div>
+                        
+                        <div class="business-option glass-card p-6 rounded-2xl shadow-elevated hover-float cursor-pointer" data-type="retail">
+                            <div class="text-center">
+                                <div class="w-16 h-16 gradient-hero rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+                                    🛍️
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Retail</h3>
+                                <p class="text-sm text-muted">Toko, minimarket, dll</p>
+                            </div>
+                        </div>
+                        
+                        <div class="business-option glass-card p-6 rounded-2xl shadow-elevated hover-float cursor-pointer" data-type="jasa">
+                            <div class="text-center">
+                                <div class="w-16 h-16 gradient-primary rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+                                    🔧
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Jasa</h3>
+                                <p class="text-sm text-muted">Service, konsultan, dll</p>
+                            </div>
+                        </div>
+                        
+                        <div class="business-option glass-card p-6 rounded-2xl shadow-elevated hover-float cursor-pointer" data-type="lainnya">
+                            <div class="text-center">
+                                <div class="w-16 h-16 gradient-hero rounded-2xl flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+                                    📊
+                                </div>
+                                <h3 class="text-lg font-semibold mb-2">Lainnya</h3>
+                                <p class="text-sm text-muted">Kategori lainnya</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Business Details -->
+                <div id="step-2" class="step-content hidden">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold mb-4">Detail Bisnis</h2>
+                        <p class="text-muted text-lg">Berikan informasi lebih detail tentang bisnis Anda</p>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-3xl shadow-elevated">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Nama Bisnis</label>
+                                <input type="text" id="business-name" class="input-field" placeholder="Masukkan nama bisnis Anda">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Alamat</label>
+                                <textarea id="business-address" class="input-field" rows="3" placeholder="Masukkan alamat bisnis"></textarea>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Nomor Telepon</label>
+                                <input type="tel" id="business-phone" class="input-field" placeholder="Masukkan nomor telepon">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold mb-2">Deskripsi Bisnis</label>
+                                <textarea id="business-description" class="input-field" rows="4" placeholder="Ceritakan tentang bisnis Anda"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Goals -->
+                <div id="step-3" class="step-content hidden">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold mb-4">Tujuan Bisnis</h2>
+                        <p class="text-muted text-lg">Apa yang ingin Anda capai dengan bisnis ini?</p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="glass-card p-6 rounded-2xl shadow-elevated hover-float cursor-pointer goal-option" data-goal="meningkatkan-pendapatan">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center text-white text-xl font-bold">
+                                    📈
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">Meningkatkan Pendapatan</h3>
+                                    <p class="text-sm text-muted">Optimasi penjualan dan keuntungan</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card p-6 rounded-2xl shadow-elevated hover-float cursor-pointer goal-option" data-goal="mengelola-keuangan">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 gradient-hero rounded-xl flex items-center justify-center text-white text-xl font-bold">
+                                    💰
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">Mengelola Keuangan</h3>
+                                    <p class="text-sm text-muted">Tracking dan analisis keuangan</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card p-6 rounded-2xl shadow-elevated hover-float cursor-pointer goal-option" data-goal="meningkatkan-pelanggan">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center text-white text-xl font-bold">
+                                    👥
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">Meningkatkan Pelanggan</h3>
+                                    <p class="text-sm text-muted">Strategi marketing dan retensi</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card p-6 rounded-2xl shadow-elevated hover-float cursor-pointer goal-option" data-goal="efisiensi-operasional">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 gradient-hero rounded-xl flex items-center justify-center text-white text-xl font-bold">
+                                    ⚡
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold">Efisiensi Operasional</h3>
+                                    <p class="text-sm text-muted">Optimasi proses dan produktivitas</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between mt-8">
+                    <button id="prev-btn" class="btn-secondary px-6 py-3 rounded-xl font-semibold hidden">
+                        Kembali
+                    </button>
+                    <button id="next-btn" class="btn-primary px-6 py-3 rounded-xl font-semibold text-white shadow-elevated ml-auto">
+                        Lanjut
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+        const formData = {};
+
+        // Initialize
+        updateStep();
+
+        // Step navigation
+        document.getElementById('next-btn').addEventListener('click', nextStep);
+        document.getElementById('prev-btn').addEventListener('click', prevStep);
+
+        // Business type selection
+        document.querySelectorAll('.business-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.business-option').forEach(opt => opt.classList.remove('ring-2', 'ring-primary'));
+                this.classList.add('ring-2', 'ring-primary');
+                formData.businessType = this.dataset.type;
+            });
+        });
+
+        // Goal selection
+        document.querySelectorAll('.goal-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.goal-option').forEach(opt => opt.classList.remove('ring-2', 'ring-primary'));
+                this.classList.add('ring-2', 'ring-primary');
+                formData.goal = this.dataset.goal;
+            });
+        });
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateStep();
+            } else {
+                // Complete onboarding
+                completeOnboarding();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStep();
+            }
+        }
+
+        function updateStep() {
+            // Hide all steps
+            document.querySelectorAll('.step-content').forEach(step => {
+                step.classList.add('hidden');
+            });
+
+            // Show current step
+            document.getElementById(`step-${currentStep}`).classList.remove('hidden');
+
+            // Update step indicators
+            document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+                const stepNumber = index + 1;
+                indicator.classList.remove('active', 'completed');
+                
+                if (stepNumber < currentStep) {
+                    indicator.classList.add('completed');
+                } else if (stepNumber === currentStep) {
+                    indicator.classList.add('active');
+                }
+            });
+
+            // Update progress bar
+            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+
+            // Update current step text
+            document.getElementById('current-step').textContent = currentStep;
+
+            // Update buttons
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if (currentStep === 1) {
+                prevBtn.classList.add('hidden');
+            } else {
+                prevBtn.classList.remove('hidden');
+            }
+
+            if (currentStep === totalSteps) {
+                nextBtn.textContent = 'Selesai';
+            } else {
+                nextBtn.textContent = 'Lanjut';
+            }
+        }
+
+        function completeOnboarding() {
+            // Save form data
+            formData.businessName = document.getElementById('business-name').value;
+            formData.businessAddress = document.getElementById('business-address').value;
+            formData.businessPhone = document.getElementById('business-phone').value;
+            formData.businessDescription = document.getElementById('business-description').value;
+
+            // Show completion message
+            alert('Onboarding selesai! Selamat datang di MatricAi.');
+            
+            // Redirect to dashboard
+            window.location.href = 'aivator-dashboard.html';
+        }
+    </script>
+</body>
+</html>

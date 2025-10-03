@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatricAi - Notifikasi</title>
+    <link rel="icon" type="image/png" href="public/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'hsl(280 80% 60%)',
+                        accent: 'hsl(320 85% 65%)',
+                        background: 'hsl(0 0% 98%)',
+                        foreground: 'hsl(240 10% 15%)',
+                        card: 'hsl(0 0% 100%)',
+                        muted: 'hsl(240 4% 46%)',
+                        destructive: 'hsl(0 84% 60%)',
+                        border: 'hsl(240 6% 90%)',
+                    },
+                    boxShadow: {
+                        'elevated': '0 8px 32px rgba(168, 85, 247, 0.12)',
+                        'glow': '0 0 40px rgba(168, 85, 247, 0.25)',
+                        'intense': '0 12px 48px rgba(168, 85, 247, 0.2)',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        
+        .gradient-primary {
+            background: linear-gradient(135deg, hsl(280 80% 60%) 0%, hsl(320 85% 65%) 50%, hsl(260 75% 65%) 100%);
+        }
+        
+        .gradient-hero {
+            background: linear-gradient(135deg, hsl(280 90% 65%) 0%, hsl(320 95% 70%) 50%, hsl(340 90% 70%) 100%);
+        }
+        
+        .gradient-subtle {
+            background: linear-gradient(180deg, hsl(0 0% 98%) 0%, hsl(280 30% 98%) 100%);
+        }
+        
+        .text-gradient-primary {
+            background: linear-gradient(135deg, hsl(280 80% 60%) 0%, hsl(320 85% 65%) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hover-float {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-float:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(168, 85, 247, 0.2);
+        }
+        
+        .notification-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .notification-item:hover {
+            box-shadow: 0 8px 32px rgba(168, 85, 247, 0.12);
+            border-color: hsl(280 80% 60% / 0.2);
+        }
+        
+        .unread-dot {
+            width: 8px;
+            height: 8px;
+            background: hsl(280 80% 60%);
+            border-radius: 50%;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gradient-subtle min-h-screen">
+    <div class="flex min-h-screen w-full">
+        <!-- Sidebar -->
+        <aside class="hidden md:flex md:flex-col fixed inset-y-0 z-50 w-64 glass-card border-r border-primary/10 shadow-elevated">
+            <!-- Logo -->
+            <div class="flex items-center justify-center px-6 py-6 border-b border-primary/10">
+                <div class="h-12 w-12 rounded-lg overflow-hidden">
+                    <img src="public/logo.png" alt="MatricAi Logo" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 px-3 py-6 space-y-1">
+                <a href="aivator-dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-muted hover:bg-primary/5 hover:text-primary transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span>Beranda</span>
+                </a>
+                <a href="ai-chat.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-muted hover:bg-primary/5 hover:text-primary transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                    <span>AI</span>
+                </a>
+                <a href="visualisasi.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-muted hover:bg-primary/5 hover:text-primary transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <span>Visualisasi</span>
+                </a>
+                <a href="community.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-muted hover:bg-primary/5 hover:text-primary transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    </svg>
+                    <span>Komunitas</span>
+                </a>
+                <a href="profile.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-muted hover:bg-primary/5 hover:text-primary transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span>Profil</span>
+                </a>
+            </nav>
+
+            <!-- Logout Button -->
+            <div class="px-3 py-6 border-t border-primary/10">
+                <button onclick="logout()" class="w-full flex items-center justify-start gap-3 px-4 py-2 border border-border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                    <span>Keluar</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-64 pb-20 md:pb-0">
+            <div class="container mx-auto px-4 py-8 max-w-4xl">
+                <div class="space-y-8">
+                    <!-- Header -->
+                    <div class="glass-card p-8 rounded-3xl shadow-elevated">
+                        <h1 class="text-4xl font-bold mb-3 text-gradient-primary">
+                            Notifikasi
+                        </h1>
+                        <p class="text-muted">Tetap update dengan aktivitas terbaru</p>
+                    </div>
+
+                    <!-- Notifications List -->
+                    <div class="space-y-4">
+                        <!-- Notification 1 -->
+                        <div class="glass-card p-6 shadow-card notification-item relative">
+                            <div class="unread-dot"></div>
+                            <div class="flex gap-4 items-start">
+                                <!-- Icon -->
+                                <div class="flex-shrink-0">
+                                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <!-- Content -->
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-semibold mb-1">Performa Paket Proyek Renovasi</h3>
+                                    <p class="text-sm text-muted mb-2 line-clamp-2">
+                                        Paket proyek renovasi kamar mandi yang Anda buat mengalami peningkatan penjualan sebesar 15% dalam seminggu terakhir. Ini menunjukkan bahwa strategi marketing Anda berhasil!
+                                    </p>
+                                    <p class="text-xs text-muted">2 jam yang lalu</p>
+                                </div>
+                                
+                                <!-- Arrow -->
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xl text-primary/70">
+                                        →
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notification 2 -->
+                        <div class="glass-card p-6 shadow-card notification-item relative">
+                            <div class="unread-dot"></div>
+                            <div class="flex gap-4 items-start">
+                                <!-- Icon -->
+                                <div class="flex-shrink-0">
+                                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <!-- Content -->
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-semibold mb-1">Efek Diskon Tukang Berhasil</h3>
+                                    <p class="text-sm text-muted mb-2 line-clamp-2">
+                                        Program diskon khusus untuk tukang berhasil menaikkan penjualan sebesar 25%. Pelanggan baru meningkat 40% dari target bulanan.
+                                    </p>
+                                    <p class="text-xs text-muted">5 jam yang lalu</p>
+                                </div>
+                                
+                                <!-- Arrow -->
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xl text-primary/70">
+                                        →
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notification 3 -->
+                        <div class="glass-card p-6 shadow-card notification-item relative">
+                            <div class="flex gap-4 items-start">
+                                <!-- Icon -->
+                                <div class="flex-shrink-0">
+                                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <!-- Content -->
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-semibold mb-1">Iklan Jangkau Kontraktor Efektif</h3>
+                                    <p class="text-sm text-muted mb-2 line-clamp-2">
+                                        Iklan yang menargetkan kontraktor di Facebook mencapai 85% engagement rate. ROI meningkat 30% dari campaign sebelumnya.
+                                    </p>
+                                    <p class="text-xs text-muted">1 hari yang lalu</p>
+                                </div>
+                                
+                                <!-- Arrow -->
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xl text-primary/70">
+                                        →
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notification 4 -->
+                        <div class="glass-card p-6 shadow-card notification-item relative">
+                            <div class="flex gap-4 items-start">
+                                <!-- Icon -->
+                                <div class="flex-shrink-0">
+                                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <!-- Content -->
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-semibold mb-1">Performa Paket Proyek Renovasi</h3>
+                                    <p class="text-sm text-muted mb-2 line-clamp-2">
+                                        Paket proyek renovasi kamar mandi yang Anda buat mengalami peningkatan penjualan sebesar 15% dalam seminggu terakhir.
+                                    </p>
+                                    <p class="text-xs text-muted">2 hari yang lalu</p>
+                                </div>
+                                
+                                <!-- Arrow -->
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xl text-primary/70">
+                                        →
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notification 5 -->
+                        <div class="glass-card p-6 shadow-card notification-item relative">
+                            <div class="flex gap-4 items-start">
+                                <!-- Icon -->
+                                <div class="flex-shrink-0">
+                                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <!-- Content -->
+                                <div class="flex-1 min-w-0">
+                                    <h3 class="font-semibold mb-1">Performa Paket Proyek Renovasi</h3>
+                                    <p class="text-sm text-muted mb-2 line-clamp-2">
+                                        Paket proyek renovasi kamar mandi yang Anda buat mengalami peningkatan penjualan sebesar 15% dalam seminggu terakhir.
+                                    </p>
+                                    <p class="text-xs text-muted">3 hari yang lalu</p>
+                                </div>
+                                
+                                <!-- Arrow -->
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-xl text-primary/70">
+                                        →
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div class="text-center">
+                        <button class="px-6 py-3 border border-border rounded-lg hover:bg-primary/5 transition-colors">
+                            Muat Lebih Banyak
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Navigation -->
+        <nav class="md:hidden fixed bottom-0 inset-x-0 z-50 glass-card border-t border-primary/10 shadow-intense">
+            <div class="flex items-center justify-around px-2 py-3">
+                <a href="aivator-dashboard.html" class="flex flex-col items-center gap-1 px-3 py-2 rounded-2xl text-muted hover:bg-primary/5 min-w-[64px] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span class="text-xs font-semibold">Beranda</span>
+                </a>
+                <a href="ai-chat.html" class="flex flex-col items-center gap-1 px-3 py-2 rounded-2xl text-muted hover:bg-primary/5 min-w-[64px] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                    <span class="text-xs font-semibold">AI</span>
+                </a>
+                <a href="community.html" class="flex flex-col items-center gap-1 px-3 py-2 rounded-2xl text-muted hover:bg-primary/5 min-w-[64px] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    </svg>
+                    <span class="text-xs font-semibold">Komunitas</span>
+                </a>
+                <a href="notifications.html" class="flex flex-col items-center gap-1 px-3 py-2 rounded-2xl gradient-primary text-white shadow-glow min-w-[64px]">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM4.828 7l2.586 2.586a2 2 0 002.828 0L12.828 7H4.828zM4.828 17h8M4.828 7h8"></path>
+                    </svg>
+                    <span class="text-xs font-semibold">Notifikasi</span>
+                </a>
+                <a href="profile.html" class="flex flex-col items-center gap-1 px-3 py-2 rounded-2xl text-muted hover:bg-primary/5 min-w-[64px] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span class="text-xs font-semibold">Profil</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+    
+    <script>
+        // Logout function
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                window.location.href = 'auth.html';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatricAi - Dashboard</title>
+    <link rel="icon" type="image/png" href="public/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'hsl(280 80% 60%)',
+                        accent: 'hsl(320 85% 65%)',
+                        background: 'hsl(0 0% 98%)',
+                        foreground: 'hsl(240 10% 15%)',
+                        card: 'hsl(0 0% 100%)',
+                        muted: 'hsl(240 4% 46%)',
+                        destructive: 'hsl(0 84% 60%)',
+                        border: 'hsl(240 6% 90%)',
+                    },
+                    boxShadow: {
+                        'elevated': '0 8px 32px rgba(168, 85, 247, 0.12)',
+                        'glow': '0 0 40px rgba(168, 85, 247, 0.25)',
+                        'intense': '0 12px 48px rgba(168, 85, 247, 0.2)',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        
+        .gradient-primary {
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #8b5cf6 100%) !important;
+        }
+        
+        .text-black {
+            color: #000000 !important;
+        }
+        
+        .gradient-hero {
+            background: linear-gradient(135deg, hsl(280 90% 65%) 0%, hsl(320 95% 70%) 50%, hsl(340 90% 70%) 100%);
+        }
+        
+        .gradient-glass {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+        }
+        
+        .gradient-subtle {
+            background: linear-gradient(180deg, hsl(0 0% 98%) 0%, hsl(280 30% 98%) 100%);
+        }
+        
+        .text-gradient-primary {
+            background: linear-gradient(135deg, hsl(280 80% 60%) 0%, hsl(320 85% 65%) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .shadow-elevated {
+            box-shadow: 0 8px 32px rgba(168, 85, 247, 0.12);
+        }
+        
+        .shadow-glow {
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.25);
+        }
+        
+        .shadow-intense {
+            box-shadow: 0 12px 48px rgba(168, 85, 247, 0.2);
+        }
+        
+        .hover-float:hover {
+            transform: translateY(-4px);
+            transition: transform 0.3s ease;
+        }
+        
+        .group-hover-scale:hover .group-hover-scale {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .interaction-hover:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s ease;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            color: hsl(240 4% 46%);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(135deg, hsl(280 80% 60%) 0%, hsl(320 85% 65%) 100%);
+            color: white;
+        }
+        
+        .nav-item:hover:not(.active) {
+            background: hsl(280 80% 60% / 0.1);
+            color: hsl(280 80% 60%);
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen">
+    <div class="flex min-h-screen w-full">
+        <!-- Sidebar -->
+        <aside class="hidden md:flex md:flex-col fixed inset-y-0 z-50 w-64 bg-white border-r border-gray-200 shadow-elevated">
+            <!-- Logo -->
+            <div class="flex items-center justify-center px-6 py-6 border-b border-gray-200">
+                <div class="h-12 w-12 rounded-lg overflow-hidden">
+                    <img src="public/logo.png" alt="MatricAi Logo" class="w-full h-full object-cover" />
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 px-3 py-6 space-y-1">
+                <a href="aivator-dashboard.html" class="nav-item active">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span>Beranda</span>
+                </a>
+                <a href="ai-chat.html" class="nav-item">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                    <span>AI</span>
+                </a>
+                <a href="visualisasi.html" class="nav-item">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <span>Visualisasi</span>
+                </a>
+                <a href="community.html" class="nav-item">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    </svg>
+                    <span>Komunitas</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span>Profil</span>
+                </a>
+            </nav>
+
+            <!-- Logout Button -->
+            <div class="px-3 py-6 border-t border-gray-200">
+                <button onclick="logout()" class="w-full flex items-center justify-start gap-3 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                    <span>Keluar</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-64 pb-20 md:pb-0">
+            <div class="container mx-auto px-6 py-8 max-w-7xl">
+
+                <!-- Weekly Report Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-black mb-2">Laporan Mingguan</h2>
+                    <p class="text-black mb-6">Dec 14 - Dec 20, 2024</p>
+                    
+                    <!-- Business Entry -->
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="flex items-center gap-4 bg-white p-4 rounded-xl shadow-glow border border-purple-200">
+                            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-purple-200">
+                                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=100&h=100&fit=crop&crop=face" alt="Cooking's Jane" class="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-black">Cooking's jane</h3>
+                                <p class="text-sm text-black">Menjual makanan lokal</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Camera" class="w-full h-full object-cover" />
+                            </div>
+                            <div class="w-8 h-8 rounded-full overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Instagram" class="w-full h-full object-cover" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Card -->
+                    <div class="bg-white p-8 rounded-2xl shadow-glow border border-purple-200 mb-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 rounded-full overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Chart" class="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                                <p class="text-sm text-black mb-1">Performa Minggu Ini</p>
+                                <p class="text-4xl font-bold text-black">+23%</p>
+                            </div>
+                        </div>
+                        <p class="text-black">Minggu yang luar biasa! Interaksi Anda naik 20% dan meningkat 15%.</p>
+                    </div>
+
+                    <!-- Key Metrics Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-xl shadow-glow border border-purple-200">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=100&h=100&fit=crop&crop=face" alt="Shopping" class="w-full h-full object-cover" />
+                                </div>
+                                <div>
+                                    <p class="text-3xl font-bold text-black">2,847</p>
+                                    <p class="text-black">Total Pembelian</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-glow border border-purple-200">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full overflow-hidden">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Money" class="w-full h-full object-cover" />
+                                </div>
+                                <div>
+                                    <p class="text-3xl font-bold text-black">Rp. 100.000</p>
+                                    <p class="text-black">Pendapatan</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Income Analysis Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-black mb-6">Analisa Pendapatan</h2>
+                    
+                    <div class="bg-white p-8 rounded-2xl shadow-glow border border-purple-200">
+                        <div class="flex items-start gap-4 mb-6">
+                            <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Warning" class="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-black mb-2">Masalah Utama: Pertumbuhan Omzet Melambat</h3>
+                                <p class="text-black">Meski ada pertumbuhan 12%, laju pertumbuhannya menurun dan 18% sebelumnya.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-start gap-3">
+                                <div class="w-2 h-2 bg-gray-400 rounded-full mt-2 flex-shrink-0"></div>
+                                <p class="text-black"><span class="font-semibold">Faktor Penyebab:</span> Kehadiran offline yang terbatas</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-2 h-2 bg-gray-400 rounded-full mt-2 flex-shrink-0"></div>
+                                <p class="text-black"><span class="font-semibold">Faktor Penyebab:</span> Biaya bahan baku yang tinggi mengurangi margin</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-2 h-2 bg-gray-400 rounded-full mt-2 flex-shrink-0"></div>
+                                <p class="text-black"><span class="font-semibold">Faktor Penyebab:</span> Potensi pasar lokal yang belum tergaap</p>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full bg-gradient-primary text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg transition-all">
+                            Apa yang bisa kamu lakukan?
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI Recommendations Section -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-black mb-6">Rekomendasi AI</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-glow border border-purple-200">
+                            <div class="text-4xl mb-4">🚀</div>
+                            <h3 class="text-lg font-bold text-black mb-3">Tingkatkan Omzet Proyek Anda</h3>
+                            <p class="text-black text-sm mb-6">Tawarkan paket khusus untuk proyek renovasi kecil. Buat bundle material yang sering dibeli pelanggan Anda.</p>
+                            <button class="w-full border-2 border-purple-500 text-purple-600 py-3 px-4 rounded-xl font-semibold text-sm hover:bg-purple-50 transition-all">
+                                Lihat Detail →
+                            </button>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-2xl shadow-glow border border-purple-200">
+                            <div class="text-4xl mb-4">💪</div>
+                            <h3 class="text-lg font-bold text-black mb-3">Kembangkan Relasi dengan Tukang</h3>
+                            <p class="text-black text-sm mb-6">Program loyalitas untuk tukang langganan bisa membantu omzet stabil. Berikan diskon khusus untuk pembelian rutin mereka.</p>
+                            <button class="w-full border-2 border-purple-500 text-purple-600 py-3 px-4 rounded-xl font-semibold text-sm hover:bg-purple-50 transition-all">
+                                Lihat Detail →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Todo List Section -->
+                <div class="mb-8">
+                    <div class="mb-4">
+                        <p class="text-sm text-black mb-1">Hi, Nelo</p>
+                        <h2 class="text-2xl font-bold text-black">Ini adalah Todo Kamu</h2>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- Todo Item 1 -->
+                        <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-glow border border-purple-200">
+                            <div class="w-6 h-6 border-2 border-gray-300 rounded-full flex-shrink-0 mt-1"></div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-black mb-1">Buat Daftar Material Paket</h3>
+                                <p class="text-sm text-black">Identifikasi material yang sering dibeli pelanggan untuk paket khusus</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Todo Item 2 -->
+                        <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-glow border border-purple-200">
+                            <div class="w-6 h-6 border-2 border-gray-300 rounded-full flex-shrink-0 mt-1"></div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-black mb-1">Tentukan Harga Spesial Paket</h3>
+                                <p class="text-sm text-black">Hitung margin yang tepat untuk paket material dengan diskon menarik</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Todo Item 3 - Highlighted -->
+                        <div class="bg-white p-6 rounded-xl shadow-glow border-2 border-purple-500">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-black mb-1">Latih Karyawan Toko</h3>
+                                    <p class="text-sm text-black">Berikan pelatihan tentang paket baru dan cara menawarkan kepada pelanggan</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-purple-200">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Employee 1" class="w-full h-full object-cover" />
+                                </div>
+                                <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-purple-200">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Employee 2" class="w-full h-full object-cover" />
+                                </div>
+                                <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-purple-200">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Employee 3" class="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Todo Item 4 -->
+                        <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-glow border border-purple-200">
+                            <div class="w-6 h-6 border-2 border-gray-300 rounded-full flex-shrink-0 mt-1"></div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-black mb-1">Tentukan Harga Spesial Paket</h3>
+                                <p class="text-sm text-black">Hitung margin yang tepat untuk paket material dengan diskon menarik</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Navigation -->
+        <nav class="md:hidden fixed bottom-0 inset-x-0 z-50 glass-card border-t border-primary/10 shadow-intense">
+            <div class="flex items-center justify-around px-2 py-3">
+                <a href="aivator-dashboard.html" class="flex flex-col items-center gap-1 px-3 py-2 rounded-2xl gradient-primary text-white shadow-glow min-w-[64px]">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span class="text-xs font-semibold">Beranda</span>
+                </a>
+                <a href="ai-chat.html" class="flex flex-col items-center gap-1 px-3 py-2 rounded-2xl text-black hover:bg-primary/5 min-w-[64px] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                    <span class="text-xs font-semibold text-black">AI</span>
+                </a>
+                <a href="visualisasi.html" class="flex flex-col items-center gap-1 px-3 py-2 rounded-2xl text-black hover:bg-primary/5 min-w-[64px] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    <span class="text-xs font-semibold text-black">Data</span>
+                </a>
+                <a href="community.html" class="flex flex-col items-center gap-1 px-3 py-2 rounded-2xl text-black hover:bg-primary/5 min-w-[64px] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    </svg>
+                    <span class="text-xs font-semibold text-black">Komunitas</span>
+                </a>
+                <a href="profile.html" class="flex flex-col items-center gap-1 px-3 py-2 rounded-2xl text-black hover:bg-primary/5 min-w-[64px] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span class="text-xs font-semibold text-black">Profil</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        // Logout function
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                window.location.href = 'auth.html';
+            }
+        }
+    </script>
+</body>
+</html>
